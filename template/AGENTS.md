@@ -1,0 +1,94 @@
+# External Brain: guide for AI agents
+
+A Zettelkasten-style Obsidian vault maintained together with AI coding agents.
+Claude Code reads this file through `CLAUDE.md`; Codex and Hermes Agent read it
+directly. Edit rules here, never in `CLAUDE.md`.
+
+## Folders
+
+- `raw/`: sources waiting to be digested (web clips, PDFs, transcripts, photos
+  of handwritten notes). Agents read it and never edit, move, or delete it. It
+  is transient: the owner clears it after digestion, so no note may link,
+  embed, or cite a `raw/` path.
+- `Fleeting Notes/`: quick captures, `type: fleeting`. Every new note lands here.
+- `Literature Notes/`: synthesized write-ups of several fleeting notes or
+  sources, `type: literature`.
+- `Permanent Notes/`: reference-quality notes, rarely edited, `type: permanent`.
+- `Files/`: images and attachments that notes embed.
+- `Templates/`: note templates. Quote `{{placeholders}}` inside frontmatter.
+- `outputs/`: generated reports and drafts waiting for review.
+- `Index.md`: topic-grouped catalog of every note, rebuilt by `/wiki`. Read it
+  first to find notes; then read the notes themselves.
+- `Log.md`: append-only log, one line per change. Read only its last 30 lines.
+
+## Frontmatter
+
+```yaml
+---
+title: "Note title"
+type: fleeting          # fleeting | literature | permanent
+created: 2026-01-31T09:00:00
+updated:
+tags: ["#tag"]
+topic: ["[[Concept Note]]"]
+sources: []             # URL, DOI, [[note]], or a plain description; never raw/
+---
+```
+
+## Rules
+
+- Distill, don't transcribe. A fleeting note is a few dense bullets.
+- Link related notes with `[[wikilinks]]`; prefer an existing topic over a new one.
+- Never promote a note to Literature or Permanent without the owner's approval.
+- Never move or delete a fleeting note. After a promotion, append
+  `Promoted to [[New Note]]` to its last line.
+- A fact added from outside the vault is marked as LLM-suggested, with a source.
+- Log every write in `Log.md` (Hermes uses `Log-hermes.md`):
+  `- YYYY-MM-DD | <agent> | <skill> | what changed`.
+
+## Writing style
+
+A light version of ASD-STE100 Simplified Technical English, for all new text.
+
+- One instruction per sentence; steps in the imperative, at most 20 words.
+- Descriptive sentences at most 25 words; one topic per paragraph.
+- Active voice. The same word for the same thing every time.
+- Common words: use, start, make sure, before (not utilize, commence, ensure,
+  prior to). A vertical list for three or more parallel items.
+- Keep technical terms, code, and quotes exactly as they are.
+
+## Write lock
+
+One agent writes at a time. Before any write, run
+`mkdir -p .locks && mkdir .locks/vault-write.lock`. The second `mkdir` fails
+if another agent holds the lock. Then write `<agent> | <ISO time> | <task>` to
+`.locks/vault-write.lock/owner`. Remove the lock directory when the whole
+operation is done. A lock older than 30 minutes is stale, but ask the owner
+before removing it.
+
+## Git sync
+
+The lock works on one machine only, because `.locks/` is not synced.
+
+- An agent on a second machine runs `git pull --rebase` before every write.
+- After the write, it commits only the files it created, then pushes.
+- If the pull or the push fails, it stops and tells the owner. It never
+  resolves a conflict itself.
+- If obsidian-git runs on the main machine, it commits on a timer. Don't
+  commit routine edits by hand.
+
+## Agents and roles
+
+- Claude Code and Codex: all skills (`/digest`, `/wiki`, `/qna`, `/lint`,
+  `/explain`).
+- Hermes Agent on a small local model: `/qna`, and `/digest` into new fleeting
+  notes only. It never edits existing notes, rebuilds `Index.md`, promotes, or
+  applies lint fixes, and it logs to `Log-hermes.md` instead of `Log.md`.
+  The skills it must not run (`/wiki`, `/lint`, `/explain`) say so in their
+  first line.
+
+## About this file
+
+Installed by llm-wiki-vault (https://github.com/baobach/llm-wiki-vault).
+Change it freely: `install.sh --update-skills` updates the skills and
+`wiki_lint.py`, and never touches this file.

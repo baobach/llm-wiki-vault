@@ -1,0 +1,6 @@
+Fleeting Notes/Fractional Kelly.md: links into raw/: [[clip]]
+Fleeting Notes/Fractional Kelly.md: sources cites a raw/ path
+Fleeting Notes/Kelly Criterion.md: broken link [[Position Sizing]]
+Fleeting Notes/Lonely.md: frontmatter missing type, created
+Fleeting Notes/Lonely.md: isolated (no links in or out)
+3 notes checked, 5 problem(s)
