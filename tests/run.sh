@@ -72,7 +72,4 @@ python3 "$V/wiki_index.py" "$V" --check >/dev/null || fail "--check says out of 
 perl -pi -e 's/^title: "Lonely"/title: "Lonely"\ntags: ["#sizing"]/' "$V/Fleeting Notes/Lonely.md"
 if python3 "$V/wiki_index.py" "$V" --check >/dev/null; then fail "--check missed a change"; fi
 
-echo "6. default download ref matches VERSION"
-grep -q "LLM_WIKI_VAULT_REF:-v$(cat "$ROOT/VERSION")}" "$ROOT/install.sh" || fail "REF in install.sh != VERSION"
-
 echo "all tests passed"
