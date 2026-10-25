@@ -1,0 +1,6 @@
+{
+  "sections": [
+    {"title": "Position Sizing", "match": ["Position Sizing", "#sizing"]}
+  ],
+  "notes": {"Kelly Criterion": "the formula"}
+}

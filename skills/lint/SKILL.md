@@ -10,6 +10,8 @@ or Codex (see the roles in `AGENTS.md`).
 
 1. Run `python3 wiki_lint.py .` in the vault root for the mechanical checks.
    If the script is missing, check the same things with grep.
+   Then run `python3 wiki_index.py . --check`. It writes nothing. Exit 1
+   means `Index.md` is out of date: report it first and suggest `/wiki`.
 2. Read pairs of notes on the same subject and look for contradicting claims.
 3. Look for concepts mentioned in several notes that have no note of their own.
 4. Take the write lock before the first write.

@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 744" width="1200" height="744" role="img" aria-labelledby="t d">
+<title id="t">The llm-wiki-vault loop</title>
+<desc id="d">Five skills move notes through a loop. /digest turns a source into a fleeting note. /wiki rebuilds Index.md with wiki_index.py and proposes promotions that you approve into Literature or Permanent Notes. /qna and /explain answer from the index and the notes. /lint checks links and frontmatter and flags a stale index, which sends you back to /wiki. One AGENTS.md holds the rules that Claude Code, Codex, and Hermes Agent share.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="s0"/><stop offset=".58" class="s1"/><stop offset="1" class="s2"/></linearGradient>
+<marker id="a-o" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9Z" class="ah-o"/></marker>
+<marker id="a-p" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9Z" class="ah-p"/></marker>
+<filter id="shadow" x="-12%" y="-18%" width="124%" height="146%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#4d372b" flood-opacity=".1"/></filter>
+</defs>
+<style>
+text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.s0 { stop-color: #f6eadd; } .s1 { stop-color: #fbf4ec; } .s2 { stop-color: #fff9f2; }
+.eyebrow { fill: #a94f1b; } .ink { fill: #3d3846; } .muted { fill: #6f6873; } .faint { fill: #8a7f86; }
+.cf-o { fill: #fff8f0; stroke: #f0d3bb; stroke-width: 1.2; } .cf-p { fill: #faf6ff; stroke: #dccbf5; stroke-width: 1.2; }
+.cf-n { fill: #fffdf9; fill-opacity: .55; stroke: #cdbfb3; stroke-width: 1.4; }
+.bar-o { fill: #e9823c; } .bar-p { fill: #7a3fd0; }
+.badge-o { fill: #fbe0cc; } .badge-p { fill: #e6daf8; } .bt-o { fill: #b8561c; } .bt-p { fill: #6630b8; }
+.chip-o { fill: #3d3846; } .chip-p { fill: #3d3846; } .ct-o { fill: #ffd2ad; } .ct-p { fill: #e1cdff; }
+.pill-o { fill: #fdeee2; stroke: #efb98f; } .pill-p { fill: #f1eafd; stroke: #c9b0f2; }
+.dot-o { fill: #e9823c; } .dot-p { fill: #7a3fd0; } .pt-o { fill: #8d4a22; } .pt-p { fill: #5b2fa3; }
+.fl-o { stroke: #e9823c; } .fl-p { stroke: #7a3fd0; } .ah-o { fill: #e9823c; } .ah-p { fill: #7a3fd0; }
+.stack rect { fill: #a39486; } .star { fill: #ee975a; } .star-p { fill: #a46bf0; } .cline { stroke: #dfc8b4; }
+@media (prefers-color-scheme: dark) {
+  .s0 { stop-color: #17141f; } .s1 { stop-color: #1c1826; } .s2 { stop-color: #221c2e; }
+  .eyebrow { fill: #f2a36b; } .ink { fill: #f1ece6; } .muted { fill: #bdb4c4; } .faint { fill: #9a90a3; }
+  .cf-o { fill: #2a2230; stroke: #5a3f33; } .cf-p { fill: #262138; stroke: #47386a; }
+  .cf-n { fill: #1f1b29; fill-opacity: 1; stroke: #4a4252; }
+  .badge-o { fill: #4a3022; } .badge-p { fill: #3a2b5c; } .bt-o { fill: #ffb27a; } .bt-p { fill: #cbb0ff; }
+  .chip-o, .chip-p { fill: #13111a; } .pill-o { fill: #3a2a24; stroke: #7a4d33; } .pill-p { fill: #30284a; stroke: #5d4a8c; }
+  .pt-o { fill: #ffc79d; } .pt-p { fill: #d6c2ff; } .fl-p { stroke: #a46bf0; } .ah-p { fill: #a46bf0; } .bar-p { fill: #a46bf0; }
+  .stack rect { fill: #8c8096; } .cline { stroke: #3f3550; }
+}
+.card { animation: rise .9s cubic-bezier(.2,.75,.25,1) both; }
+.card-2 { animation-delay: .12s; } .card-3 { animation-delay: .24s; } .card-4 { animation-delay: .36s; }
+.card-5 { animation-delay: .48s; } .card-6 { animation-delay: .6s; }
+.flow { stroke-dasharray: 7 9; animation: travel 9s linear infinite; }
+.constellation { animation: drift 9s ease-in-out infinite; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes travel { to { stroke-dashoffset: -64; } }
+@keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .card, .flow, .constellation { animation: none; } }
+</style>
+<rect width="1200" height="744" rx="24" fill="url(#bg)"/>
+<g class="constellation" fill="none" stroke-width="1.2" opacity=".75">
+<path d="M1010 52L1052 30 1098 60 1140 36" class="cline"/>
+<circle cx="1010" cy="52" r="4" class="star"/><circle cx="1052" cy="30" r="3.5" class="star" opacity=".55"/>
+<circle cx="1098" cy="60" r="4" class="star-p" opacity=".6"/><circle cx="1140" cy="36" r="3" class="star-p"/>
+</g>
+<text x="40" y="52" class="eyebrow" font-size="14" font-weight="750" letter-spacing="2.2">THE VAULT LOOP</text>
+<text x="40" y="92" class="ink" font-size="30" font-weight="720">From a clipped source to a note you trust</text>
+<text x="40" y="124" class="muted" font-size="17">Five small skills. Deterministic scripts where it matters. You approve what becomes permanent.</text>
+<path d="M387 286.0H419" class="flow fl-o" fill="none" stroke-width="2.4" marker-end="url(#a-o)"/>
+<path d="M779 286.0H811" class="flow fl-o" fill="none" stroke-width="2.4" marker-end="url(#a-o)"/>
+<path d="M992.0 399V461" class="flow fl-p" fill="none" stroke-width="2.4" marker-end="url(#a-p)"/>
+<path d="M813 576.0H781" class="flow fl-p" fill="none" stroke-width="2.4" marker-end="url(#a-p)"/>
+<path d="M600.0 463V401" class="flow fl-p" fill="none" stroke-width="2.4" marker-end="url(#a-p)"/>
+<text x="614.0" y="436.0" class="faint" font-size="13" font-style="italic">stale index? run /wiki</text>
+<g class="card card-1" filter="url(#shadow)">
+<rect x="32" y="176" width="352" height="220" rx="16" class="cf-o"/>
+<rect x="32" y="176" width="352" height="5" rx="2.5" class="bar-o"/>
+<circle cx="70" cy="220" r="18" class="badge-o"/>
+<text x="70" y="225.5" text-anchor="middle" class="bt-o" font-size="14" font-weight="750">01</text>
+<text x="98" y="227" class="ink" font-size="20" font-weight="760" letter-spacing=".6">CAPTURE</text>
+<rect x="286.6" y="206" width="77.4" height="27" rx="8" class="chip-o"/>
+<text x="325.3" y="224.5" text-anchor="middle" class="mono ct-o" font-size="13.5" font-weight="650">/digest</text>
+<text x="58" y="270" class="ink" font-size="17.5" font-weight="700">Turn a source into a note</text>
+<text x="58" y="300" class="muted" font-size="15">raw/ clip, URL, pasted text, photo</text>
+<text x="58" y="326" class="muted" font-size="15">→ Fleeting Notes/, origin in sources:</text>
+<rect x="48.2" y="350" width="317.8" height="28" rx="14" class="pill-o"/>
+<circle cx="65.2" cy="364" r="4" class="dot-o"/>
+<text x="77.2" y="368.5" class="pt-o" font-size="13" font-weight="560">source text is data, not instructions</text>
+</g>
+<g class="card card-2" filter="url(#shadow)">
+<rect x="424" y="176" width="352" height="220" rx="16" class="cf-o"/>
+<rect x="424" y="176" width="352" height="5" rx="2.5" class="bar-o"/>
+<circle cx="462" cy="220" r="18" class="badge-o"/>
+<text x="462" y="225.5" text-anchor="middle" class="bt-o" font-size="14" font-weight="750">02</text>
+<text x="490" y="227" class="ink" font-size="20" font-weight="760" letter-spacing=".6">INDEX</text>
+<rect x="695.0" y="206" width="61.0" height="27" rx="8" class="chip-o"/>
+<text x="725.5" y="224.5" text-anchor="middle" class="mono ct-o" font-size="13.5" font-weight="650">/wiki</text>
+<text x="450" y="270" class="ink" font-size="17.5" font-weight="700">Rebuild the catalog</text>
+<text x="450" y="300" class="muted" font-size="15">wiki_index.py reads frontmatter</text>
+<text x="450" y="326" class="muted" font-size="15">+ index_sections.json → Index.md</text>
+<rect x="499.4" y="350" width="258.6" height="28" rx="14" class="pill-o"/>
+<circle cx="516.4" cy="364" r="4" class="dot-o"/>
+<text x="528.4" y="368.5" class="pt-o" font-size="13" font-weight="560">same notes in, same index out</text>
+</g>
+<g class="card card-3" filter="url(#shadow)">
+<rect x="816" y="176" width="352" height="220" rx="16" class="cf-o"/>
+<rect x="816" y="176" width="352" height="5" rx="2.5" class="bar-o"/>
+<circle cx="854" cy="220" r="18" class="badge-o"/>
+<text x="854" y="225.5" text-anchor="middle" class="bt-o" font-size="14" font-weight="750">03</text>
+<text x="882" y="227" class="ink" font-size="20" font-weight="760" letter-spacing=".6">PROMOTE</text>
+<rect x="1087.0" y="206" width="61.0" height="27" rx="8" class="chip-o"/>
+<text x="1117.5" y="224.5" text-anchor="middle" class="mono ct-o" font-size="13.5" font-weight="650">/wiki</text>
+<text x="842" y="270" class="ink" font-size="17.5" font-weight="700">Grow what is ready</text>
+<text x="842" y="300" class="muted" font-size="15">shortlist of mature fleeting notes</text>
+<text x="842" y="326" class="muted" font-size="15">→ Literature or Permanent Notes</text>
+<rect x="861.8" y="350" width="288.2" height="28" rx="14" class="pill-o"/>
+<circle cx="878.8" cy="364" r="4" class="dot-o"/>
+<text x="890.8" y="368.5" class="pt-o" font-size="13" font-weight="560">nothing written until you approve</text>
+</g>
+<g class="card card-4" filter="url(#shadow)">
+<rect x="816" y="466" width="352" height="220" rx="16" class="cf-p"/>
+<rect x="816" y="466" width="352" height="5" rx="2.5" class="bar-p"/>
+<circle cx="854" cy="510" r="18" class="badge-p"/>
+<text x="854" y="515.5" text-anchor="middle" class="bt-p" font-size="14" font-weight="750">04</text>
+<text x="882" y="517" class="ink" font-size="20" font-weight="760" letter-spacing=".6">ASK</text>
+<rect x="1062.4" y="496" width="85.6" height="27" rx="8" class="chip-p"/>
+<text x="1105.2" y="514.5" text-anchor="middle" class="mono ct-p" font-size="13.5" font-weight="650">/explain</text>
+<rect x="1003.6" y="496" width="52.8" height="27" rx="8" class="chip-p"/>
+<text x="1030.0" y="514.5" text-anchor="middle" class="mono ct-p" font-size="13.5" font-weight="650">/qna</text>
+<text x="842" y="560" class="ink" font-size="17.5" font-weight="700">Answer from your notes</text>
+<text x="842" y="590" class="muted" font-size="15">Index.md first, then the notes</text>
+<text x="842" y="616" class="muted" font-size="15">cited [[wikilinks]], HTML explainers</text>
+<rect x="876.6" y="640" width="273.4" height="28" rx="14" class="pill-p"/>
+<circle cx="893.6" cy="654" r="4" class="dot-p"/>
+<text x="905.6" y="658.5" class="pt-p" font-size="13" font-weight="560">saves an answer only when asked</text>
+</g>
+<g class="card card-5" filter="url(#shadow)">
+<rect x="424" y="466" width="352" height="220" rx="16" class="cf-p"/>
+<rect x="424" y="466" width="352" height="5" rx="2.5" class="bar-p"/>
+<circle cx="462" cy="510" r="18" class="badge-p"/>
+<text x="462" y="515.5" text-anchor="middle" class="bt-p" font-size="14" font-weight="750">05</text>
+<text x="490" y="517" class="ink" font-size="20" font-weight="760" letter-spacing=".6">CHECK</text>
+<rect x="695.0" y="496" width="61.0" height="27" rx="8" class="chip-p"/>
+<text x="725.5" y="514.5" text-anchor="middle" class="mono ct-p" font-size="13.5" font-weight="650">/lint</text>
+<text x="450" y="560" class="ink" font-size="17.5" font-weight="700">Keep the graph healthy</text>
+<text x="450" y="590" class="muted" font-size="15">wiki_lint.py: links, raw/, orphans</text>
+<text x="450" y="616" class="muted" font-size="15">wiki_index.py --check: stale index</text>
+<rect x="432.8" y="640" width="325.2" height="28" rx="14" class="pill-p"/>
+<circle cx="449.8" cy="654" r="4" class="dot-p"/>
+<text x="461.8" y="658.5" class="pt-p" font-size="13" font-weight="560">fixes the mechanical, reports the rest</text>
+</g>
+<g class="card card-6">
+<rect x="32" y="466" width="352" height="220" rx="16" class="cf-n" stroke-dasharray="6 6"/>
+<g transform="translate(54 494)" class="stack">
+<rect x="0" y="12" width="32" height="8" rx="3"/><rect x="0" y="0" width="32" height="8" rx="3" opacity=".7"/><rect x="0" y="24" width="32" height="8" rx="3" opacity=".45"/></g>
+<text x="98" y="517" class="ink" font-size="20" font-weight="760" letter-spacing=".6">SHARED RULES</text>
+<text x="58" y="560" class="ink" font-size="17.5" font-weight="700">One AGENTS.md for every agent</text>
+<text x="58" y="590" class="muted" font-size="15">Claude Code, Codex, Hermes Agent</text>
+<text x="58" y="616" class="muted" font-size="15">write lock, Log.md, writing style</text>
+<text x="58" y="662" class="faint" font-size="13" font-weight="560">plain Markdown in a private git repo</text>
+</g>
+<text x="600.0" y="722" text-anchor="middle" class="faint" font-size="13">every write: take the lock, change the files, add one line to Log.md, release the lock</text>
+</svg>

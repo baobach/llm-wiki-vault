@@ -8,7 +8,7 @@
 set -euo pipefail
 
 REPO="baobach/llm-wiki-vault"
-REF="${LLM_WIKI_VAULT_REF:-v0.1.0}"
+REF="${LLM_WIKI_VAULT_REF:-v0.2.0}"
 SKILLS="digest wiki qna lint explain"
 SKILL_DIRS=".claude/skills .agents/skills" # Claude Code / Codex and Hermes Agent
 
@@ -22,14 +22,15 @@ maintain with the /digest, /wiki, /qna, /lint, and /explain skills.
   VAULT              vault folder, created if missing (default: ~/external-brain)
 
 Options:
-  --update-skills    replace installed skills and wiki_lint.py with this version;
+  --update-skills    replace installed skills, wiki_lint.py, and wiki_index.py
+                     with this version;
                      replaced files are kept as *.bak-<timestamp>
   --no-git           don't run git init
   --ref REF          tag or branch to download when not run from a clone
   -h, --help         show this help
 
-Existing files are never overwritten, except skills and wiki_lint.py with
---update-skills. AGENTS.md and your notes are never touched.
+Existing files are never overwritten, except skills and the two scripts with
+--update-skills. AGENTS.md, index_sections.json, and your notes are never touched.
 EOF
 }
 
@@ -147,6 +148,7 @@ render_new "$SRC/template/Index.md" Index.md
 render_new "$SRC/template/Log.md" Log.md
 copy_new "$SRC/template/Templates/Note Template.md" "Templates/Note Template.md"
 copy_new "$SRC/template/gitignore" .gitignore
+copy_new "$SRC/template/index_sections.json" index_sections.json
 
 for skill in $SKILLS; do
   for dir in $SKILL_DIRS; do
@@ -154,6 +156,7 @@ for skill in $SKILLS; do
   done
 done
 install_file "$SRC/tools/wiki_lint.py" wiki_lint.py
+install_file "$SRC/tools/wiki_index.py" wiki_index.py
 
 if [[ ! -e .llm-wiki-vault-version ]] || ((updated > 0)); then
   echo "$VERSION" >.llm-wiki-vault-version

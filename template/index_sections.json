@@ -1,0 +1,5 @@
+{
+  "_about": "Section map for wiki_index.py. A note lands in every section whose match list holds one of its topic:/project: wikilink targets or tags (\"#tag\"). A note whose own name is in a match list is that section's hub. \"types\" limits a section to those note types. \"notes\" adds a fixed annotation after a note's link. /wiki edits this file; Index.md is generated from it.",
+  "sections": [],
+  "notes": {}
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# tests/run.sh: end-to-end tests for install.sh and wiki_lint.py.
+# tests/run.sh: end-to-end tests for install.sh, wiki_lint.py, and wiki_index.py.
 # Usage: bash tests/run.sh
 
 set -euo pipefail
@@ -20,7 +20,7 @@ snapshot() { (cd "$V" && find . -type f -exec cksum {} + | sort); }
 echo "1. fresh install"
 bash "$ROOT/install.sh" --no-git "$V" >"$T/out1"
 for f in AGENTS.md CLAUDE.md Index.md Log.md .gitignore "Templates/Note Template.md" \
-  wiki_lint.py .llm-wiki-vault-version; do
+  wiki_lint.py wiki_index.py index_sections.json .llm-wiki-vault-version; do
   [[ -f "$V/$f" ]] || fail "missing $f"
 done
 for d in "Fleeting Notes" "Literature Notes" "Permanent Notes" Files raw outputs; do
@@ -61,7 +61,18 @@ set -e
 [[ $rc -eq 1 ]] || fail "wiki_lint.py exit code $rc, expected 1"
 diff -u "$ROOT/tests/expected-lint.txt" "$T/lint.out" || fail "wiki_lint.py output differs"
 
-echo "5. default download ref matches VERSION"
+echo "5. wiki_index.py builds Index.md from the section map"
+cp "$ROOT/tests/index_sections.json" "$V/index_sections.json"
+python3 "$V/wiki_index.py" "$V" >"$T/index.out"
+grep -q '^Index.md written: 3 notes, 1 in sections, 2 uncategorized' "$T/index.out" || fail "wiki_index.py summary"
+if grep -q '\[\[position sizing\]\]' "$T/index.out"; then fail "mapped target reported as unmapped"; fi
+grep -v '^updated:' "$V/Index.md" | diff -u "$ROOT/tests/expected-index.md" - || fail "Index.md differs"
+python3 "$V/wiki_index.py" "$V" | grep -q '^Index.md unchanged' || fail "rerun rewrote Index.md"
+python3 "$V/wiki_index.py" "$V" --check >/dev/null || fail "--check says out of date"
+perl -pi -e 's/^title: "Lonely"/title: "Lonely"\ntags: ["#sizing"]/' "$V/Fleeting Notes/Lonely.md"
+if python3 "$V/wiki_index.py" "$V" --check >/dev/null; then fail "--check missed a change"; fi
+
+echo "6. default download ref matches VERSION"
 grep -q "LLM_WIKI_VAULT_REF:-v$(cat "$ROOT/VERSION")}" "$ROOT/install.sh" || fail "REF in install.sh != VERSION"
 
 echo "all tests passed"
